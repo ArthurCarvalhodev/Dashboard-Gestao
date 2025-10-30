@@ -7,21 +7,60 @@
     font-family: Arial, sans-serif;
 }
 
-/* CABECALHO */
+/* CABECALHO - FIXO */
 .container{
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    z-index: 1000; 
+    width: 100%;
     font-size: 2rem;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 25px;
+    padding: 1.25rem 25px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(223, 229, 235);
-    border-radius: 0.5rem;
+    background-color: rgb(255, 255, 255); 
     box-shadow: 0 2px 6px rgba(0,0,0,.1);
 }
 
-.botao_atualizar{
+.cabecalho__estrutura{
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho__titulo{
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 0.1rem;
+}
+
+.cabecalho__sub__titulo{
+    --tw-text-opacity: 1;
+    color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+    font-size: 1rem;
+}
+
+.container__botao__autorefresh{
     border-radius: 0.5rem;
+    background-color: rgb(220, 252, 231);
+    color: #15803D;
+    border: gray;
+    width: 9rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+
+.container__botao__autorefresh:hover{
+    background-color: rgb(180, 240, 210); 
+    box-shadow: 0 4px 8px rgba(0,0,0,.15); 
+}
+
+.container__botao__atualizar{
+    border-radius: 0.5rem;
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+    color: #eee;
     border: gray;
     width: 7rem;
     height: 2.5rem;
@@ -29,15 +68,18 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.1);
 }
 
-.botao_atualizar:hover{
-     transform: scale(1.1);
+.container__botao__atualizar:hover{
+    background-color: rgb(29, 78, 216);
+    box-shadow: 0 4px 8px rgba(0,0,0,.15);
 }
 
-
+/*Conteudo Principal*/
 
 body {
-    background: #f5f6fa;
-    padding: 20px;
+    background-color: #f5f6fa;
+    padding: 1.25rem;
+    padding-top: 6.5rem; 
+    padding-bottom: 3rem; 
 }
 
 header {
@@ -48,23 +90,26 @@ h2 {
     color: #333;
 }
 
+/*KPIS GERAIS (Topo) */
 .kpis {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     margin-bottom: 25px;
+    margin-top: 0;
 }
 
 .card {
     background: white;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 2px 6px rgba(0,0,0,.1);
 }
 
 .card:hover{
-    transform: scale(1.1);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); 
+    transform: translateY(-0.25rem); 
 }
 
 .card span {
@@ -75,6 +120,8 @@ h2 {
     color: #007bff;
 }
 
+
+/*GRÁFICOS INICIAIS (2 COLUNAS)*/
 .graficos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -87,34 +134,325 @@ h2 {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    
+    /* CORREÇÃO DE TAMANHO */
+    position: relative; 
+    height: 300px;
 }
 .grafico_titulo{
     text-align: center;
 }
 
-.tabela_titulo{
-    text-align: center;
-    background-color: rgb(223, 229, 235);
-    border-radius: 0.4rem;
-    padding: 0.2rem;
+/* ================================================================= */
+/* 🛠️ SEÇÃO FLUXO DE PESSOAS (secao-fluxo) - BEM NOMENCLATURA */
+/* ================================================================= */
+
+.secao-fluxo { /* Nova classe pai para a seção */
+    margin-top: 1.5rem;
+    margin-bottom: 25px;
 }
-.tabela table {
-    width: 100%;
+
+.secao-fluxo__header {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.secao-fluxo__pico-info {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #666;
+}
+
+/* KPIS DE FLUXO (fluxo-kpis) */
+.fluxo-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.fluxo-kpis__card {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
-    border-collapse: collapse;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.05);
 }
 
-.tabela th, .tabela td {
-    padding: 10px;
+.fluxo-kpis__label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.fluxo-kpis__value {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Cores específicas dos KPIS de Fluxo (Modificadores) */
+.fluxo-kpis__card--entradas { border-left: 4px solid #10b981; background-color: #f0fff4; }
+.fluxo-kpis__card--entradas .fluxo-kpis__value { color: #10b981; }
+
+.fluxo-kpis__card--saidas { border-left: 4px solid #ef4444; background-color: #fff0f0; }
+.fluxo-kpis__card--saidas .fluxo-kpis__value { color: #ef4444; }
+
+.fluxo-kpis__card--total { border-left: 4px solid #3b82f6; background-color: #f0f8ff; }
+.fluxo-kpis__card--total .fluxo-kpis__value { color: #3b82f6; }
+
+
+/* GRÁFICOS */
+.grafico-card.fluxo-grafico__full-width {
+    /* Ocupa a largura total da seção (mesmo que secao-fluxo não seja grid, mantém a intenção) */
+    
+    /* CORREÇÃO DE TAMANHO PARA GRÁFICO MAIOR */
+    height: 400px; 
+}
+
+
+/* ================================================================= */
+/* 🛠️ SEÇÃO TRANSAÇÕES/DISPOSITIVOS (section-dados) - BEM NOMENCLATURA */
+/* ================================================================= */
+
+.section-dados { /* Classe pai para a seção de duas colunas */
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Transações maior, Dispositivos menor */
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+
+/* --- BLOCO ESQUERDO: TRANSAÇÕES --- */
+.transacoes-bloco { 
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.05);
+    padding: 1.5rem;
+    overflow-y: auto; 
+    max-height: 70vh; /* Limita a altura para scroll */
+}
+
+.transacoes-bloco__header {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid #f59e0b; /* Borda laranja para transações */
+    padding-left: 0.5rem;
+}
+
+.transacoes-bloco__live-info {
+    font-size: 0.8rem;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* Itens da Transação */
+.transacao-item {
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid #eee;
-    text-align: center;
+    padding: 1rem 0;
 }
 
-.tabela th {
-    background: #007bff;
+.transacao-item__icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #3b82f6;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+.transacao-item__icon--visitor {
+    background-color: #f59e0b; /* Laranja para visitantes */
+}
+
+
+.transacao-item__details {
+    flex-grow: 1;
+}
+
+.transacao-item__nome {
+    font-weight: bold;
+    color: #333;
+}
+
+.transacao-item__pin, .transacao-item__catraca {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.transacao-item__local {
+    display: inline-block;
+    background-color: #e0f2fe;
+    color: #0c4a6e;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.transacao-item__local--visitor {
+    background-color: #fef3c7;
+    color: #78350f;
+}
+
+.transacao-item__time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    color: #999;
+    flex-shrink: 0;
+}
+.transacao-item__outros {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 5px;
+}
+
+
+/* --- BLOCO DIREITO: STATUS DISPOSITIVOS --- */
+.dispositivos-bloco {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.05);
+    padding: 1.5rem;
+}
+
+.dispositivos-bloco__header {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dispositivos-bloco__total {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #666;
+}
+
+.dispositivos-kpis {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Cores específicas dos KPIS de Dispositivo */
+.dispositivos-kpis__card {
+    padding: 1rem 0.5rem;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    box-shadow: none; 
+    border-radius: 8px; 
+}
+
+.dispositivos-kpis__card--total { border: 1px solid #3b82f6; background-color: #f0f8ff; }
+.dispositivos-kpis__card--total .fluxo-kpis__value { color: #3b82f6; } 
+
+.dispositivos-kpis__card--online { border: 1px solid #10b981; background-color: #f0fff4; }
+.dispositivos-kpis__card--online .fluxo-kpis__value { color: #10b981; }
+
+.dispositivos-kpis__card--offline { border: 1px solid #ef4444; background-color: #fff0f0; }
+.dispositivos-kpis__card--offline .fluxo-kpis__value { color: #ef4444; }
+
+.dispositivos-kpis__percentage {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.dispositivos-bloco__disponibilidade-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.dispositivos-lista {
+    overflow-y: auto;
+    max-height: 40vh; 
+}
+
+.dispositivos-lista__item {
+    border: 1px solid #eee;
+    border-left: 4px solid transparent;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.dispositivos-lista__item--offline {
+    border-left-color: #ef4444;
+    background-color: #fff0f0;
+}
+
+.dispositivos-lista__name {
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.dispositivos-lista__status {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.dispositivos-lista__offline-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ef4444;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+}
+
+/* RODAPÉ - FIXO */
+.rodape {
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: rgb(248, 248, 248); 
+    box-shadow: 0 -0.125rem 0.375rem rgba(0, 0, 0, 0.15); 
+    color: #555;
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0.5rem 1.5rem; 
+    font-size: 0.8rem;
+}
+
+.rodape .footer-info {
+    font-size: 0.75rem;
+    color: #777;
 }
 
 

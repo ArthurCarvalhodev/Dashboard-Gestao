@@ -1,80 +1,183 @@
 <!DOCTYPE html>
-<html lang="pt'br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Controle de acesso</title>
     <link rel="icon" type="favicon.png" href="../frontend/assets/corporativo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../frontend/Styles/styles.css">
 </head>
 <body>
     <!--Cabecalho-->
     <header id="cabecalho">
         <div class="container">
-            <h1>🏢 Dashboard - Controle de acesso</h1>
-            <button class="botao_atualizar">Atualizar</button>
+            <div class="cabecalho__estrutura">
+            <h1 class="cabecalho__titulo">🏢 Dashboard de Controle de acesso</h1>
+            <p class="cabecalho__sub__titulo">Centro de Operações Rio (COR)</p>
+            </div>
+
+            <div class="container__botoes">
+                <button class="container__botao__autorefresh">Auto-Refresh ON</button>
+                <button class="container__botao__atualizar"><i class="fas fa-sync-alt"></i> Atualizar</button>
+            </div>
+            
         </div>
     </header>
 
     <!--Principal-->
     <main>
+        <!-- KPIS GERAIS -->
         <section class="kpis">
         <div class="card">
-            <h3>Total de Acessos</h3>
+            <h3>Pessoas no Prédio</h3>
             <span id="kpi-total">0</span>
         </div>
 
         <div class="card">
-            <h3>Usuários Ativos</h3>
+            <h3>Funcionários Hoje</h3>
             <span id="kpi-ativos">0</span>
         </div>
 
         <div class="card">
-            <h3>Acessos Fora do Horário</h3>
+            <h3>Visitantes Hoje</h3>
             <span id="kpi-alerta">0</span>
         </div>
+
+          <div class="card">
+            <h3>Total de Acessos</h3>
+            <span id="kpi-acessos-total">0</span> <!-- ID CORRIGIDA: Não era bom usar kpi-alerta duas vezes -->
+        </div>
+
     </section>
 
+    <!-- GRÁFICOS INICIAIS (2 COLUNAS) -->
     <section class="graficos">
         <div class="grafico-card">
-            <h4 class="grafico_titulo">Acessos por Setor</h4>
+            <h4 class="grafico_titulo">🏢 Top 10 Departamentos</h4>
             <canvas id="graficoSetor"></canvas>
         </div>
 
         <div class="grafico-card">
-            <h4 class="grafico_titulo">Fluxo de Acessos por Hora</h4>
-            <canvas id="graficoHora"></canvas>
+            <h4 class="grafico_titulo">🚪 Top 10 Portas Mais Usadas</h4>
+            <canvas id="graficoPortas"></canvas>
+        </div>
+            <div class="grafico-card">
+            <h4 class="grafico_titulo">🔐 Tipos de Acesso</h4>
+            <canvas id="graficoTiposAcesso"></canvas>
         </div>
 
           <div class="grafico-card">
-            <h4 class="grafico_titulo">Alerta & Segurança</h4>
-            <canvas id="graficoAlertas"></canvas>
+            <h4 class="grafico_titulo">⚠️ Alertas e Segurança</h4>
+            <canvas id="graficoSeguranca"></canvas>
         </div>
 
     </section>
 
-    <section class="tabela">
-        <h2 class="tabela_titulo">Eventos Recentes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Colaborador</th>
-                    <th>Setor</th>
-                    <th>Ponto</th>
-                    <th>Data / Hora</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaEventos">
-                <tr>
-                    <td colspan="5">Carregando...</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- SEÇÃO 1: FLUXO DE PESSOAS POR HORA (BEM NOMEADA) -->
+    <section class="secao-fluxo">
+        <h2 class="secao-fluxo__header">📊 Fluxo de Pessoas por Hora <span class="secao-fluxo__pico-info">Pico: 11:00 (440 acessos)</span></h2>
+
+        <div class="fluxo-kpis">
+            <div class="fluxo-kpis__card fluxo-kpis__card--entradas">
+                <p class="fluxo-kpis__label">↗ Entradas</p>
+                <span class="fluxo-kpis__value">343</span>
+            </div>
+            <div class="fluxo-kpis__card fluxo-kpis__card--saidas">
+                <p class="fluxo-kpis__label">↘ Saídas</p>
+                <span class="fluxo-kpis__value">157</span>
+            </div>
+            <div class="fluxo-kpis__card fluxo-kpis__card--total">
+                <p class="fluxo-kpis__label">~ Total</p>
+                <span class="fluxo-kpis__value">500</span>
+            </div>
+        </div>
+
+        <div class="grafico-card fluxo-grafico__full-width">
+            <h4 class="grafico_titulo">Fluxo Horário (Entradas vs Saídas)</h4>
+            <canvas id="fluxoHorarioChart"></canvas> 
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: TRANSAÇÕES E DISPOSITIVOS (BEM NOMEADA) -->
+    <section class="section-dados">
+        
+        <!-- BLOCO ESQUERDO: TRANSAÇÕES -->
+        <div class="transacoes-bloco">
+            <h2 class="transacoes-bloco__header">⚡ Últimas Transações <span class="transacoes-bloco__live-info">Live 15 transações</span></h2>
+            
+            <div class="transacao-item">
+                <div class="transacao-item__icon">A</div>
+                <div class="transacao-item__details">
+                    <p class="transacao-item__nome">ANA LUCIA</p>
+                    <p class="transacao-item__pin">PIN: 105448044796</p>
+                    <span class="transacao-item__local">PIEMONTE FACILITIES</span>
+                    <p class="transacao-item__catraca">CATRACA-3-ENTRADA-1</p>
+                </div>
+                <div class="transacao-item__time">
+                    <span>12:05:35</span>
+                    <p class="transacao-item__outros">⚙ Outros</p>
+                </div>
+            </div>
+            <div class="transacao-item">
+                <div class="transacao-item__icon transacao-item__icon--visitor">V</div>
+                <div class="transacao-item__details">
+                    <p class="transacao-item__nome">Desconhecido</p>
+                    <p class="transacao-item__pin">PIN:</p>
+                    <span class="transacao-item__local transacao-item__local--visitor">Visitante</span>
+                    <p class="transacao-item__catraca">ALERTARIO-1</p>
+                </div>
+                <div class="transacao-item__time">
+                    <span>12:04:58</span>
+                    <p class="transacao-item__outros">⚙ Outros</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCO DIREITO: STATUS DISPOSITIVOS -->
+        <div class="dispositivos-bloco">
+            <h2 class="dispositivos-bloco__header">Status dos Dispositivos <span class="dispositivos-bloco__total">60 dispositivos</span></h2>
+            
+            <div class="dispositivos-kpis">
+                <div class="dispositivos-kpis__card dispositivos-kpis__card--total">
+                    <p class="fluxo-kpis__label">~ Total</p>
+                    <span class="fluxo-kpis__value">60</span>
+                </div>
+                <div class="dispositivos-kpis__card dispositivos-kpis__card--online">
+                    <p class="fluxo-kpis__label">Online</p>
+                    <span class="fluxo-kpis__value">0</span>
+                    <p class="dispositivos-kpis__percentage">0%</p>
+                </div>
+                <div class="dispositivos-kpis__card dispositivos-kpis__card--offline">
+                    <p class="fluxo-kpis__label">Offline</p>
+                    <span class="fluxo-kpis__value">60</span>
+                    <p class="dispositivos-kpis__percentage">100.0%</p>
+                </div>
+            </div>
+            
+            <p class="dispositivos-bloco__disponibilidade-label">Disponibilidade</p>
+            <div class="dispositivos-lista">
+                <div class="dispositivos-lista__item dispositivos-lista__item--offline">
+                    <p class="dispositivos-lista__name">CP9L232460212</p>
+                    <p class="dispositivos-lista__status">N/A</p>
+                    <span class="dispositivos-lista__offline-tag">Offline</span>
+                </div>
+                <div class="dispositivos-lista__item dispositivos-lista__item--offline">
+                    <p class="dispositivos-lista__name">CP9L232460039</p>
+                    <p class="dispositivos-lista__status">N/A</p>
+                    <span class="dispositivos-lista__offline-tag">Offline</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     </main>
-    <footer></footer>
+
+    <!--Rodapé-->
+    <footer class="rodape">
+        &copy; 2025 Centro de Operações Rio (COR) - Dashboard de Controle de Acesso
+        <span class="footer-info">Integração: ZKBiio CV Security • Versão 2.0</span>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
